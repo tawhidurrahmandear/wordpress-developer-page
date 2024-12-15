@@ -25,8 +25,10 @@ if ( ! class_exists( 'Moyna_Developer' ) ) {
             $theme = wp_get_theme();
             $this->theme_name    = esc_attr( $theme->get( 'Name' ) );
             $this->theme_version = $theme->get( 'Version' );
-            $this->page_title    = __( "{$this->theme_name} Developer", 'moyna' );
-            $this->menu_title    = __( "{$this->theme_name} Theme", 'moyna' );
+            
+            // Fix dynamic variables in translation functions using sprintf
+            $this->page_title = esc_html__( '%s Developer', 'moyna' );
+            $this->menu_title = esc_html__( '%s Theme', 'moyna' );
 
             add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
             add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
@@ -37,8 +39,8 @@ if ( ! class_exists( 'Moyna_Developer' ) ) {
          */
         public function add_admin_menu() {
             add_theme_page(
-                $this->page_title,
-                $this->menu_title,
+                sprintf( $this->page_title, $this->theme_name ), 
+                sprintf( $this->menu_title, $this->theme_name ), 
                 'edit_theme_options',
                 'moyna-developer',
                 [ $this, 'render_screen' ]
@@ -125,16 +127,16 @@ if ( ! class_exists( 'Moyna_Developer' ) ) {
 // Configuration setup
 $theme_name = esc_attr( wp_get_theme()->get( 'Name' ) );
 $config = [
-'developer_title'   => sprintf( esc_html__( 'Welcome to %s', 'moyna' ), $theme_name ),
-'developer_content' => sprintf( esc_html__( '%s is ideal for micro blogs, social networks, and news headlines.', 'moyna' ), $theme_name ),
+    'developer_title'   => sprintf( esc_html__( 'Welcome to %s', 'moyna' ), $theme_name ),
+    'developer_content' => sprintf( esc_html__( '%s is ideal for micro blogs, social networks, and news headlines.', 'moyna' ), $theme_name ),
     'quick_links'       => [
-[ 'text' => esc_html__( 'Live Preview', 'moyna' ), 'url' => 'https://wp-themes.com/moyna/' ],
-[ 'text' => esc_html__( 'Introduction to Theme', 'moyna' ), 'url' => 'https://store.devilhunter.net/wordpress-theme/moyna' ],
-[ 'text' => esc_html__( 'Theme on WordPress.org', 'moyna' ), 'url' => 'https://wordpress.org/themes/moyna/' ],
-[ 'text' => esc_html__( 'Web Documentation', 'moyna' ), 'url' => 'https://store.devilhunter.net/documentation/moyna/' ],
-[ 'text' => esc_html__( 'Theme Developer', 'moyna' ), 'url' => 'https://www.tawhidurrahmandear.com/' ],
-[ 'text' => esc_html__( 'Rate and Review', 'moyna' ), 'url' => 'https://wordpress.org/support/theme/moyna/reviews/#new-post' ],
-[ 'text' => esc_html__( 'Released under GPL 3.0', 'moyna' ), 'url' => 'https://www.gnu.org/licenses/gpl-3.0.en.html' ],
+        [ 'text' => esc_html__( 'Live Preview', 'moyna' ), 'url' => 'https://wp-themes.com/moyna/' ],
+        [ 'text' => esc_html__( 'Introduction to Theme', 'moyna' ), 'url' => 'https://store.devilhunter.net/wordpress-theme/moyna' ],
+        [ 'text' => esc_html__( 'Theme on WordPress.org', 'moyna' ), 'url' => 'https://wordpress.org/themes/moyna/' ],
+        [ 'text' => esc_html__( 'Web Documentation', 'moyna' ), 'url' => 'https://store.devilhunter.net/documentation/moyna/' ],
+        [ 'text' => esc_html__( 'Theme Developer', 'moyna' ), 'url' => 'https://www.tawhidurrahmandear.com/' ],
+        [ 'text' => esc_html__( 'Rate and Review', 'moyna' ), 'url' => 'https://wordpress.org/support/theme/moyna/reviews/#new-post' ],
+        [ 'text' => esc_html__( 'Released under GPL 2.0 or later', 'moyna' ), 'url' => 'https://www.gnu.org/licenses/gpl-3.0.en.html' ],
     ],
 ];
 
