@@ -2,6 +2,13 @@
 /**
  * Theme Developer Admin Menu
  */
+ 
+// Prevent direct file access
+if ( ! defined ( 'ABSPATH' ) ) {
+	exit;
+}
+//
+ 
 if ( ! class_exists( 'Moyna_Developer' ) ) {
     class Moyna_Developer {
         private $config;
